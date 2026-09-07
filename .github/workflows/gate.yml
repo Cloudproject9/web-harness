@@ -1,0 +1,38 @@
+name: Gate
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  bewerten:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code holen
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Node einrichten
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Abhaengigkeiten installieren
+        run: npm ci
+
+      - name: Gate ausfuehren
+        run: |
+          chmod +x .claude/hooks/*.sh
+          set +e
+          .claude/hooks/gate.sh origin/main
+          code=$?
+          set -e
+          echo "Gate-Exitcode: $code"
+          case "$code" in
+            0)  echo "AUTO-MERGE moeglich" >> $GITHUB_STEP_SUMMARY ;;
+            10) echo "REVIEW noetig" >> $GITHUB_STEP_SUMMARY ;;
+            11) echo "REVIEW + PREVIEW noetig" >> $GITHUB_STEP_SUMMARY ;;
+            *)  echo "BLOCKIERT" >> $GITHUB_STEP_SUMMARY; exit 1 ;;
+          esac
