@@ -4,7 +4,7 @@ set -uo pipefail
 BASE="${1:-HEAD}"
 
 echo "== Tests =="
-if npm test --silent; then
+if npm test; then
   tests="gruen"
 else
   tests="rot"
