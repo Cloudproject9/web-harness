@@ -1,0 +1,30 @@
+{
+  "name": "web-harness",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "html-validate src/**/*.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "html-validate": "^11.14.0"
+  },
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "fast-deep-equal": "^3.1.3",
+    "fast-uri": "^3.1.7",
+    "json-schema-traverse": "^1.0.0",
+    "kleur": "^4.1.5",
+    "prompts": "^2.4.2",
+    "require-from-string": "^2.0.2",
+    "semver": "^7.8.5",
+    "sisteransi": "^1.0.5"
+  }
+}
